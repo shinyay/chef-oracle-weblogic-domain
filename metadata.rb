@@ -1,0 +1,7 @@
+name 'oracle-weblogic-domain'
+maintainer 'The Authors'
+maintainer_email 'you@example.com'
+license 'all_rights'
+description 'Installs/Configures oracle-weblogic-domain'
+long_description 'Installs/Configures oracle-weblogic-domain'
+version '0.1.0'
