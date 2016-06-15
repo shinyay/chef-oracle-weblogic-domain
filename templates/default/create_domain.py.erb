@@ -1,7 +1,6 @@
 print 'CREATEING <%= node['weblogic-domain']['domain_name'] %> DOMAIN';
 
 # Select the template to use for creating the domain
-#selectTemplate('Base WebLogic Server Domain', '12.2.1')
 selectTemplate('Basic WebLogic Server Domain', '12.2.1.0')
 loadTemplates()
 
@@ -22,6 +21,9 @@ cd('/')
 cd('Security/base_domain/User/<%= node['weblogic-domain']['admin_user'] %>')
 cmo.setPassword('<%= node['weblogic-domain']['admin_password'] %>')
 
+# Start up
+setOption('ServerStartMode', '<%= node['weblogic-domain']['startmode'] %>')
+
 # If the domain already exists, overwrite the domain
 setOption('OverwriteDomain', 'true')
 
@@ -29,4 +31,6 @@ setOption('OverwriteDomain', 'true')
 writeDomain('<%= node['weblogic-domain']['domain_home'] %>/<%= node['weblogic-domain']['domain_name'] %>')
 closeTemplate()
 
+print 'COMPLETED <%= node['weblogic-domain']['domain_name'] %> DOMAIN';
 exit()
+
