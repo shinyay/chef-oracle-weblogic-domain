@@ -1,7 +1,7 @@
 print 'CREATEING <%= node['weblogic-domain']['domain_name'] %> DOMAIN';
 
 # Select the template to use for creating the domain
-selectTemplate('Basic WebLogic Server Domain', '12.2.1.0')
+selectTemplate('Basic WebLogic Server Domain', '<%= node['weblogic-domain']['wls_version'] %>')
 loadTemplates()
 
 # Set the listen address and listen port for the Administration Server
