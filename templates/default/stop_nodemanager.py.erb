@@ -1,0 +1,7 @@
+nmConnect('<%= node['weblogic-domain']['admin_user'] %>','<%= node['weblogic-domain']['admin_password']%>','localhost','<%= node['weblogic-domain']['nm_port'] %>','<%= node['weblogic-domain']['domain_name'] %>','<%= node['weblogic-domain']['domain_home'] %>/<%= node['weblogic-domain']['domain_name'] %>')
+
+print '########## STOPING NodeManager in <%= node['weblogic-domain']['domain_name'] %> DOMAIN ##########'
+
+stopNodeManager()
+
+print '########## STOPPED NodeManager in <%= node['weblogic-domain']['domain_name'] %> DOMAIN ##########'
