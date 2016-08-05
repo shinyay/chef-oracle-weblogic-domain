@@ -1,0 +1,23 @@
+connect('<%= node['weblogic-domain']['admin_user'] %>','<%= node['weblogic-domain']['admin_password'] %>','t3://localhost:<%= node['weblogic-domain']['listen_port'] %>')
+
+edit()
+
+print '########## CREATING Machine in <%= node['weblogic-domain']['domain_name'] %> DOMAIN ##########'
+
+startEdit()
+cd('/')
+cmo.createUnixMachine('<%= node['weblogic-domain']['machine_name'] %>')
+cd('/Machines/<%= node['weblogic-domain']['machine_name'] %>/NodeManager/<%= node['weblogic-domain']['machine_name'] %>')
+cmo.setNMType('SSL')
+cmo.setListenAddress('localhost')
+cmo.setListenPort(<%= node['weblogic-domain']['nm_port'] %>)
+cmo.setDebugEnabled(false)
+activate()
+startEdit()
+cd('/Servers/AdminServer')
+cmo.setMachine(getMBean('/Machines/<%= node['weblogic-domain']['machine_name'] %>'))
+activate()
+
+print '########## CREATED Machine in <%= node['weblogic-domain']['domain_name'] %> DOMAIN ##########'
+
+disconnect()
