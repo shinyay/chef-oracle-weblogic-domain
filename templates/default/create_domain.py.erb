@@ -1,23 +1,30 @@
-print 'CREATEING <%= node['weblogic-domain']['domain_name'] %> DOMAIN';
+print '########## CREATEING <%= node['weblogic-domain']['domain_name'] %> DOMAIN ##########';
 
-# Select the template to use for creating the domain
+<% if node['weblogic-domain']['wls_version']=="12.1.3" -%>
+# [Before 12.1.3] Select the template to use for creating the domain
+readTemplate('<%= node['weblogic-domain']['wls_template_jar'] %>')
+#addTemplate('<%= node['weblogic-domain']['wls_extension_template_jar'] %>')
+<% elsif node['weblogic-domain']['wls_version']=="12.2.1" || "12.2.1.1" -%>
+# [After 12.2.1] Select the template to use for creating the domain
 selectTemplate('Basic WebLogic Server Domain', '<%= node['weblogic-domain']['wls_version'] %>')
 loadTemplates()
+<% end -%>
 
 # Set the listen address and listen port for the Administration Server
 cd('Servers/AdminServer')
 set('ListenAddress','')
-set('ListenPort', 7001)
+set('ListenPort', <%= node['weblogic-domain']['listen_port'] %>)
  
 # Enable SSL on the Administration Server and set the SSL listen address and
 # port
 create('AdminServer','SSL')
 cd('SSL/AdminServer')
 set('Enabled', 'True')
-set('ListenPort', 7002)
+set('ListenPort', <%= node['weblogic-domain']['ssl_listen_port'] %>)
 
 # Set the domain password for the WebLogic Server administration user
 cd('/')
+#cd('Security/medrec/User/<%= node['weblogic-domain']['admin_user'] %>')
 cd('Security/base_domain/User/<%= node['weblogic-domain']['admin_user'] %>')
 cmo.setPassword('<%= node['weblogic-domain']['admin_password'] %>')
 
@@ -31,6 +38,6 @@ setOption('OverwriteDomain', 'true')
 writeDomain('<%= node['weblogic-domain']['domain_home'] %>/<%= node['weblogic-domain']['domain_name'] %>')
 closeTemplate()
 
-print 'COMPLETED <%= node['weblogic-domain']['domain_name'] %> DOMAIN';
+print '########## CREATED <%= node['weblogic-domain']['domain_name'] %> DOMAIN ##########';
 exit()
 
