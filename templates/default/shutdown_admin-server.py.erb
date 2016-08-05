@@ -1,0 +1,6 @@
+print '########## SHUTTING DOWN AdminServer in <%= node['weblogic-domain']['domain_name'] %> DOMAIN ##########'
+
+connect('<%= node['weblogic-domain']['admin_user'] %>','<%= node['weblogic-domain']['admin_password'] %>','t3://localhost:<%= node['weblogic-domain']['listen_port'] %>')
+shutdown()
+
+print '########## SHUTTED DOWN AdminServer in <%= node['weblogic-domain']['domain_name'] %> DOMAIN ##########'
