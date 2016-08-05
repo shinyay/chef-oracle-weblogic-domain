@@ -10,6 +10,7 @@ puts "####{cookbook_name}::#{recipe_name} #{Time.now.inspect}: Starting compile 
 #############################
 # Create a Domain Directory
 dirs = [
+  "#{node['weblogic-domain']['domain_home']}",
   "#{node['weblogic-domain']['domain_home']}/#{node['weblogic-domain']['domain_name']}"
 ]
 
@@ -22,7 +23,7 @@ dirs.each do |dir|
 end
 
 #############################
-# Crete WLST Script file for creating domain
+# Create WLST Script file for creating domain
 template "#{node['weblogic-domain']['response_file_dir']}/create_#{node['weblogic-domain']['domain_name']}_domain.py" do
   source "create_domain.py.erb"
   owner node['weblogic-domain']['owner']
@@ -41,7 +42,7 @@ execute "wlst.sh create_#{node['weblogic-domain']['domain_name']}_domain.py" do
   user node['weblogic-domain']['user']
   group node['weblogic-domain']['group']
   action :run
-  creates "#{node['weblogic-domain']['domain_home']}/#{node['weblogic-domain']['domain_name']}/bin"
+  creates "#{node['weblogic-domain']['domain_home']}/#{node['weblogic-domain']['domain_name']}"
 end
 
 # log  "####{cookbook_name}::#{recipe_name} #{Time.now.inspect}: Finished execution phase"
