@@ -42,7 +42,7 @@ execute "wlst.sh create_#{node['weblogic-domain']['domain_name']}_domain.py" do
   user node['weblogic-domain']['user']
   group node['weblogic-domain']['group']
   action :run
-  creates "#{node['weblogic-domain']['domain_home']}/#{node['weblogic-domain']['domain_name']}"/servers
+  creates "#{node['weblogic-domain']['domain_home']}/#{node['weblogic-domain']['domain_name']}/servers"
 end
 
 # log  "####{cookbook_name}::#{recipe_name} #{Time.now.inspect}: Finished execution phase"
