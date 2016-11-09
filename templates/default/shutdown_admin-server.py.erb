@@ -1,6 +1,7 @@
 print '########## SHUTTING DOWN AdminServer in <%= node['weblogic-domain']['domain_name'] %> DOMAIN ##########'
 
-connect('<%= node['weblogic-domain']['admin_user'] %>','<%= node['weblogic-domain']['admin_password'] %>','t3://localhost:<%= node['weblogic-domain']['listen_port'] %>')
-shutdown()
+nmConnect('<%= node['weblogic-domain']['admin_user'] %>','<%= node['weblogic-domain']['admin_password']%>','localhost','<%= node['weblogic-domain']['nm_port'] %>','<%= node['weblogic-domain']['domain_name'] %>','<%= node['weblogic-domain']['domain_home'] %>/<%= node['weblogic-domain']['domain_name'] %>', 'ssl')
+
+nmKill('AdminServer')
 
 print '########## SHUTTED DOWN AdminServer in <%= node['weblogic-domain']['domain_name'] %> DOMAIN ##########'
