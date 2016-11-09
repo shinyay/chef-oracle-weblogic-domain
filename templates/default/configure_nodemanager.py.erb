@@ -1,0 +1,12 @@
+print '########## CONFIGUREING <%= node['weblogic-domain']['domain_name'] %> DOMAIN ##########';
+
+readDomain('<%= node['weblogic-domain']['domain_home'] %>/<%= node['weblogic-domain']['domain_name'] %>')
+cd('/')
+cd('SecurityConfiguration/<%= node['weblogic-domain']['domain_name'] %>')
+cmo.setNodeManagerUsername('<%= node['weblogic-domain']['admin_user'] %>')
+cmo.setNodeManagerPasswordEncrypted('<%= node['weblogic-domain']['admin_password'] %>')
+updateDomain()
+
+print '########## CONFIGURED <%= node['weblogic-domain']['domain_name'] %> DOMAIN ##########';
+exit()
+
