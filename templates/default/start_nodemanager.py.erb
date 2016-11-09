@@ -1,7 +1,5 @@
-connect('<%= node['weblogic-domain']['admin_user'] %>','<%= node['weblogic-domain']['admin_password']%>','t3://localhost:<%= node['weblogic-domain']['listen_port']%>')
-
 print '########## STARTING NodeManager in <%= node['weblogic-domain']['domain_name'] %> DOMAIN ##########'
 
-startNodeManager(verbose='true',block='true',timeout=60000,NodeManagerHome='<%= node['weblogic-domain']['domain_home'] %>/<%= node['weblogic-domain']['domain_name'] %>/nodemanager',ListenAddress='localhost',ListenPort='<%= node['weblogic-domain']['nm_port'] %>',username='<%= node['weblogic-domain']['admin_user'] %>',password='<%= node['weblogic-domain']['admin_password']%>',host='localhost',port='<%= node['weblogic-domain']['nm_port'] %>',domainName='<%= node['weblogic-domain']['domain_name'] %>')
+startNodeManager()
 
 print '########## STARTED NodeManager in <%= node['weblogic-domain']['domain_name'] %> DOMAIN ##########'
