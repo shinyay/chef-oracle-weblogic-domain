@@ -21,8 +21,8 @@ end
 execute "wlst.sh start_#{node['weblogic-domain']['domain_name']}_admin-server.py" do
   environment "CONFIG_JVM_ARGS" => "-Djava.security.egd=file:/dev/./urandom"
   command <<-EOH 
-    . #{node['weblogic-domain']['wls_home']}/server/bin/setWLSEnv.sh
-    #{node['weblogic-domain']['oracle_common']}/common/bin/wlst.sh #{node['weblogic-domain']['response_file_dir']}/start_#{node['weblogic-domain']['domain_name']}_admin-server.py
+    . #{node['weblogic-domain']['domain_home']}/#{node['weblogic-domain']['domain_name']}/bin/setDomainEnv.sh
+    java weblogic.WLST #{node['weblogic-domain']['response_file_dir']}/start_#{node['weblogic-domain']['domain_name']}_admin-server.py
   EOH
   user node['weblogic-domain']['user']
   group node['weblogic-domain']['group']

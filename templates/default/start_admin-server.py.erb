@@ -1,5 +1,6 @@
 print '########## STARTING AdminServer in <%= node['weblogic-domain']['domain_name'] %> DOMAIN ##########'
 
-startServer('AdminServer','<%= node['weblogic-domain']['domain_name'] %>','t3://localhost:<%= node['weblogic-domain']['listen_port'] %>','<%= node['weblogic-domain']['admin_user'] %>','<%= node['weblogic-domain']['admin_password']%>','<%= node['weblogic-domain']['domain_home'] %>/<%= node['weblogic-domain']['domain_name'] %>','true',60000,'false')
+nmConnect('<%= node['weblogic-domain']['admin_user'] %>','<%= node['weblogic-domain']['admin_password']%>','localhost','<%= node['weblogic-domain']['nm_port'] %>','<%= node['weblogic-domain']['domain_name'] %>','<%= node['weblogic-domain']['domain_home'] %>/<%= node['weblogic-domain']['domain_name'] %>','ssl')
+nmStart('AdminServer')
 
 print '########## STARTED AdminServer in <%= node['weblogic-domain']['domain_name'] %> DOMAIN ##########'
